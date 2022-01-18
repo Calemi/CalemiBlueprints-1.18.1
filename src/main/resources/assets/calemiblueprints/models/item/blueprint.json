@@ -1,0 +1,21 @@
+{
+  "parent": "calemiblueprints:block/blueprint_blue",
+  "overrides": [
+    {"predicate": {"color": 0},  "model": "calemiblueprints:block/blueprint_white"},
+    {"predicate": {"color": 1},  "model": "calemiblueprints:block/blueprint_orange"},
+    {"predicate": {"color": 2},  "model": "calemiblueprints:block/blueprint_magenta"},
+    {"predicate": {"color": 3},  "model": "calemiblueprints:block/blueprint_light_blue"},
+    {"predicate": {"color": 4},  "model": "calemiblueprints:block/blueprint_yellow"},
+    {"predicate": {"color": 5},  "model": "calemiblueprints:block/blueprint_lime"},
+    {"predicate": {"color": 6},  "model": "calemiblueprints:block/blueprint_pink"},
+    {"predicate": {"color": 7},  "model": "calemiblueprints:block/blueprint_gray"},
+    {"predicate": {"color": 8},  "model": "calemiblueprints:block/blueprint_light_gray"},
+    {"predicate": {"color": 9},  "model": "calemiblueprints:block/blueprint_cyan"},
+    {"predicate": {"color": 10},  "model": "calemiblueprints:block/blueprint_purple"},
+    {"predicate": {"color": 11},  "model": "calemiblueprints:block/blueprint_blue"},
+    {"predicate": {"color": 12},  "model": "calemiblueprints:block/blueprint_brown"},
+    {"predicate": {"color": 13},  "model": "calemiblueprints:block/blueprint_green"},
+    {"predicate": {"color": 14},  "model": "calemiblueprints:block/blueprint_red"},
+    {"predicate": {"color": 15},  "model": "calemiblueprints:block/blueprint_black"}
+  ]
+}

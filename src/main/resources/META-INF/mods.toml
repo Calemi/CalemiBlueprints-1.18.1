@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="[39,)"
+license="All rights reserved"
+
+[[mods]]
+modId="calemiblueprints"
+version="1.0.0"
+displayName="Calemi's Blueprints"
+authors="Calemi"
+credits="Calemi - Programmer & Artist"
+description='''
+    This mod adds Blueprints to the game. Blueprints are used for building large structures.
+    '''
+
+[[dependencies.calemiblueprints]]
+    modId="forge"
+    mandatory=true
+    versionRange="[39.0.9,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.calemiblueprints]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="1.18.1"
+    ordering="NONE"
+    side="BOTH"
