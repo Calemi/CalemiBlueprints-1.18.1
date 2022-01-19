@@ -1,5 +1,10 @@
 {
   "block.calemiblueprints.blueprint": "Blueprint",
+  "item.calemiblueprints.pencil": "Pencil",
+  "cb.lore.pencil": "Places Blueprint. Blueprint can be used for mass building!",
+  "cb.lore.pencil.use": "Place Blueprint",
+  "cb.lore.pencil.sneak-use": "Change Blueprint Color",
+  "cb.lore.pencil.color": "Color:",
 
 
 
@@ -12,6 +17,27 @@
 
 
   "itemGroup.calemiblueprints.tabMain": "Calemi's Blueprints",
+
+
+
+  "cb.gui.pencil.name": "Choose a Color",
+  "cb.color.white": "White",
+  "cb.color.orange": "Orange",
+  "cb.color.magenta": "Magenta",
+  "cb.color.light_blue": "Light Blue",
+  "cb.color.yellow": "Yellow",
+  "cb.color.lime": "Lime",
+  "cb.color.pink": "Pink",
+  "cb.color.gray": "Gray",
+  "cb.color.light_gray": "Light Gray",
+  "cb.color.cyan": "Cyan",
+  "cb.color.purple": "Purple",
+  "cb.color.blue": "Blue",
+  "cb.color.brown": "Brown",
+  "cb.color.green": "Green",
+  "cb.color.red": "Red",
+  "cb.color.black": "Black",
+
 
 
   "itemhelper.blocks": "block(s)",

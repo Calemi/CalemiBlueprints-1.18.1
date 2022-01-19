@@ -1,6 +1,9 @@
 package com.tm.calemiblueprints.block;
 
 import com.tm.calemiblueprints.config.CBConfig;
+import com.tm.calemiblueprints.item.ItemPencil;
+import com.tm.calemiblueprints.packet.CBPacketHandler;
+import com.tm.calemiblueprints.packet.PacketPencilSetColor;
 import com.tm.calemicore.util.BlockScanner;
 import com.tm.calemicore.util.Location;
 import com.tm.calemicore.util.UnitMessenger;
@@ -20,10 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.ChestBlock;
-import net.minecraft.world.level.block.ShulkerBoxBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -55,23 +55,25 @@ public class BlockBlueprint extends Block {
         super(BlockBehaviour.Properties.of(Material.GLASS)
                 .color(MaterialColor.COLOR_BLUE)
                 .sound(SoundType.BAMBOO)
+                .noOcclusion()
                 .strength(0.1F));
         registerDefaultState(getStateDefinition().any().setValue(COLOR, DyeColor.BLUE));
     }
 
     /**
      * Replaces a single Blueprint with the placer's held item.
-     * @param location       The Location of the replacement.
-     * @param placer         The player who replaced the Blueprint.
+     * @param location The Location of the replacement.
+     * @param placer The player who replaced the Blueprint.
+     * @param blockToReplace The block that will replace the Blueprint
      */
-    private void replaceBlueprint(Location location, Player placer) {
+    private void replaceBlueprint(Location location, Player placer, Block blockToReplace) {
 
         if (!location.level.isClientSide()) {
 
             BlockHitResult hitResult = new BlockHitResult(location.getVector(), placer.getDirection(), location.getBlockPos(), false);
             BlockPlaceContext context = new BlockPlaceContext(placer, InteractionHand.MAIN_HAND, placer.getMainHandItem(), hitResult);
 
-            location.setBlock(context);
+            location.setBlock(context, blockToReplace);
         }
     }
 
@@ -84,14 +86,15 @@ public class BlockBlueprint extends Block {
     private void replaceAllBlueprint(Location origin, Player placer, BlockScanner scanner) {
 
         ItemStack heldStack = placer.getMainHandItem();
-        BlockState heldBlockState = Block.byItem(heldStack.getItem()).defaultBlockState();
+        Block heldBlock = Block.byItem(heldStack.getItem());
+        BlockState heldBlockState = heldBlock.defaultBlockState();
 
         //Checks if the held Block State can be placed within a Blueprint.
         if (canBlockReplaceBlueprint(origin.level, heldBlockState)) {
 
             //Handles replacing only one Block.
             if (placer.isCrouching()) {
-                replaceBlueprint(origin, placer);
+                replaceBlueprint(origin, placer, heldBlock);
                 InventoryHelper.consumeItems(placer.getInventory(), heldStack, 1, false);
                 SoundHelper.playBlockPlace(origin, heldBlockState);
             }
@@ -107,7 +110,7 @@ public class BlockBlueprint extends Block {
 
                     for (Location nextLocation : scanner.buffer) {
                         amountToConsume++;
-                        replaceBlueprint(nextLocation, placer);
+                        replaceBlueprint(nextLocation, placer, heldBlock);
                     }
 
                     if (amountToConsume > 0) {
@@ -142,6 +145,7 @@ public class BlockBlueprint extends Block {
         if (!state.canSurvive(level, new BlockPos(0, 300, 0))) return false;
         if (state.getBlock() instanceof ShulkerBoxBlock) return false;
         if (state.getBlock() instanceof ChestBlock) return false;
+        if (state.getBlock() instanceof BedBlock) return false;
 
         return state.getMaterial() != Material.PLANT &&
                 state.getMaterial() != Material.BAMBOO &&
@@ -198,13 +202,13 @@ public class BlockBlueprint extends Block {
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
 
-        /*if (player.getMainHandItem().getItem() instanceof ItemPencil) {
-            CUPacketHandler.INSTANCE.sendToServer(new PacketPencilSetColor(state.getValue(COLOR).getId(), InteractionHand.MAIN_HAND));
+        if (player.getMainHandItem().getItem() instanceof ItemPencil) {
+            CBPacketHandler.INSTANCE.sendToServer(new PacketPencilSetColor(state.getValue(COLOR).getId(), InteractionHand.MAIN_HAND));
         }
 
         else if (player.getOffhandItem().getItem() instanceof ItemPencil) {
-            CUPacketHandler.INSTANCE.sendToServer(new PacketPencilSetColor(state.getValue(COLOR).getId(), InteractionHand.OFF_HAND));
-        }*/
+            CBPacketHandler.INSTANCE.sendToServer(new PacketPencilSetColor(state.getValue(COLOR).getId(), InteractionHand.OFF_HAND));
+        }
 
         ItemStack stack = new ItemStack(this);
         stack.setDamageValue(state.getValue(COLOR).getId());
