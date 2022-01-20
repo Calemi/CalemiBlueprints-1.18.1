@@ -1,0 +1,9 @@
+{
+  "parent": "block/scaffolding_stable",
+  "textures": {
+    "particle": "calemiblueprints:blocks/iron_scaffolding_top",
+    "top": "calemiblueprints:blocks/iron_scaffolding_top",
+    "side": "calemiblueprints:blocks/iron_scaffolding_side",
+    "bottom": "calemiblueprints:blocks/iron_scaffolding_bottom"
+  }
+}

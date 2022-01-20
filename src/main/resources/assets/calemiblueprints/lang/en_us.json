@@ -1,10 +1,34 @@
 {
   "block.calemiblueprints.blueprint": "Blueprint",
+
+  "block.calemiblueprints.iron_scaffolding": "Iron Scaffolding",
+  "cb.lore.iron_scaffolding": "Temporary block used for getting to the hard to reach places!",
+  "cb.lore.iron_scaffolding.use-open-hand": "On block side - Teleport to the top. On block top - Teleport to bottom.",
+  "cb.lore.iron_scaffolding.sneak-break-block": "Break all connected scaffolds",
+  "cb.lore.iron_scaffolding.left-click-block": "Place Scaffold in a line",
+  "cb.lore.iron_scaffolding.sneak-left-click-block": "Place Scaffold downwards",
+
   "item.calemiblueprints.pencil": "Pencil",
   "cb.lore.pencil": "Places Blueprint. Blueprint can be used for mass building!",
   "cb.lore.pencil.use": "Place Blueprint",
-  "cb.lore.pencil.sneak-use": "Change Blueprint Color",
+  "cb.lore.pencil.sneak-use": "Change Blueprint color",
   "cb.lore.pencil.color": "Color:",
+
+  "item.calemiblueprints.brush": "Brush",
+  "cb.lore.brush.1": "Creates shapes of blueprint for all your building needs!",
+  "cb.lore.brush.2": "Use \"/cbrush help\" for commands.",
+  "cb.lore.brush.use": "Marks the first point",
+  "cb.lore.brush.sneak-use": "Marks the second point",
+  "cb.lore.brush.pos1": "Position 1:",
+  "cb.lore.brush.pos2": "Position 2:",
+  "cb.lore.brush.not-set": "Not set",
+
+  "item.calemiblueprints.eraser": "Eraser",
+  "cb.lore.eraser": "Destroys Blueprint.",
+  "cb.lore.eraser.use": "Erases one Blueprint",
+  "cb.lore.eraser.sneak-use": "Erases all connected Blueprint",
+
+
 
 
 
@@ -15,8 +39,33 @@
   "unit.blueprint.msg.error.notenough": "You don't have enough blocks of that type!",
   "unit.blueprint.msg.error.notenough.missing": "You're missing:",
 
+  "unit.brush.name": "Brush",
+  "unit.brush.msg.pos1.set": "Position 1 set to coordinates:",
+  "unit.brush.msg.pos2.set": "Position 2 set to coordinates:",
+  "unit.brush.msg.help-line.1": "----- Brush Commands -----",
+  "unit.brush.msg.help-line.2": "Arguments inside of () are optional.",
+  "unit.brush.msg.help-line.3": "<color> The color of the Blueprint.",
+  "unit.brush.msg.help-line.4": "(hollow) Removes interior Blueprint.",
+  "unit.brush.msg.help-line.5": "/cbrush fill <color> (hollow) - Creates a cube of Blueprint.",
+  "unit.brush.msg.help-line.6": "/cbrush recolor <color1> <color2> - Recolors Blueprints of the first color with the second.",
+  "unit.brush.msg.help-line.7": "/cbrush walls <color> - Creates walls of Blueprint.",
+  "unit.brush.msg.help-line.8": "/cbrush circle <color> (hollow) - Creates a circle of Blueprint.",
+  "unit.brush.msg.help-line.9": "/cbrush cylinder <color> (hollow) - Creates a cylinder of Blueprint.",
+  "unit.brush.msg.help-line.10": "/cbrush sphere <color> (hollow) - Creates a sphere of Blueprint.",
+  "unit.brush.msg.help-line.11": "/cbrush pyramid <color> (hollow) - Creates a pyramid of Blueprint.",
+  "unit.brush.msg.placed": "Placed:",
+  "unit.brush.msg.error.disabled": "The Brush is disabled by config!",
+  "unit.brush.msg.error.too-much-fill": "Too many blocks to fill!",
+  "unit.brush.msg.error.too-much-fill.over": "You are %s Blocks over the max amount!",
+  "unit.brush.msg.error.held": "A Brush needs to be held!",
+  "unit.brush.msg.error.walls": "Both positions need to line up either on the x-axis or z-axis!",
+  "unit.brush.msg.error.pyramid": "Both positions need to line up either on the x-axis, y-axis or z-axis!",
+  "unit.brush.msg.error.null-pos": "Both of the Brush's positions need to be set!",
+
 
   "itemGroup.calemiblueprints.tabMain": "Calemi's Blueprints",
+
+
 
 
 
@@ -37,6 +86,8 @@
   "cb.color.green": "Green",
   "cb.color.red": "Red",
   "cb.color.black": "Black",
+
+
 
 
 

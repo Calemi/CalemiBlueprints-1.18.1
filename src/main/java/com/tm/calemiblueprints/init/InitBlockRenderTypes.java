@@ -10,5 +10,6 @@ public class InitBlockRenderTypes {
     public static void init() {
         ItemBlockRenderTypes.setRenderLayer(InitItems.BLUEPRINT.get(), RenderType.cutout());
         ItemProperties.register(InitItems.BLUEPRINT_ITEM.get(), new ResourceLocation("color"), (stack, level, player, damage) -> stack.getDamageValue());
+        ItemBlockRenderTypes.setRenderLayer(InitItems.IRON_SCAFFOLDING.get(), RenderType.cutout());
     }
 }

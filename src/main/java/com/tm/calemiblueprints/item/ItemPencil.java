@@ -30,17 +30,22 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
+/**
+ * The class for Pencil Items.
+ */
 public class ItemPencil extends Item {
 
+    /**
+     * Creates a Pencil Item.
+     */
     public ItemPencil() {
         super(new Item.Properties().tab(CalemiBlueprints.TAB).stacksTo(1));
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipList, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipList, TooltipFlag flag) {
         LoreHelper.addInformationLoreFirst(tooltipList, new TranslatableComponent("cb.lore.pencil"));
         LoreHelper.addControlsLoreFirst(tooltipList, new TranslatableComponent("cb.lore.pencil.use"), LoreHelper.ControlType.USE);
         LoreHelper.addControlsLore(tooltipList, new TranslatableComponent("cb.lore.pencil.sneak-use"), LoreHelper.ControlType.SNEAK_USE);
@@ -55,8 +60,8 @@ public class ItemPencil extends Item {
 
         int meta = 11;
 
-        if (ItemHelper.getNBT(stack).contains("color")) {
-            meta = ItemHelper.getNBT(stack).getInt("color");
+        if (stack.getOrCreateTag().contains("color")) {
+            meta = stack.getOrCreateTag().getInt("color");
         }
 
         return meta;
@@ -66,7 +71,7 @@ public class ItemPencil extends Item {
      * Sets the Pencil's color by id.
      */
     public static void setColorById(ItemStack stack, int meta) {
-        ItemHelper.getNBT(stack).putInt("color", meta);
+        stack.getOrCreateTag().putInt("color", meta);
     }
 
     /**

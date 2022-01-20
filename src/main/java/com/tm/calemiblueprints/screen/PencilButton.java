@@ -31,7 +31,7 @@ public class PencilButton extends ItemStackButton {
     @Override
     public ItemStack getRenderedStack() {
         ItemStack stack = new ItemStack(InitItems.PENCIL.get());
-        ItemHelper.getNBT(stack).putInt("color", colorId);
+        stack.getOrCreateTag().putInt("color", colorId);
         return stack;
     }
 

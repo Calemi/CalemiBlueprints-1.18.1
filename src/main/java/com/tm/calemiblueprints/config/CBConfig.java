@@ -20,6 +20,7 @@ public class CBConfig {
 
         public final ForgeConfigSpec.ConfigValue<Integer> blockScannerMaxSize;
         public final ForgeConfigSpec.ConfigValue<Integer> worldEditMaxSize;
+        public final ForgeConfigSpec.ConfigValue<Integer> scaffoldMaxHeightTp;
 
         public CategoryServer (ForgeConfigSpec.Builder builder) {
 
@@ -29,7 +30,11 @@ public class CBConfig {
                     "2304 is the maximum count of blocks in a single Player inventory. There is no real reason to set it above, but the option is there")
                     .defineInRange("veinScanMaxSize", 2304, 0, 5000);
 
-            worldEditMaxSize = builder.comment("Brush Max Size", "0 to Disable. The max size of blocks the Brush can place. Lower values run faster on servers.").defineInRange("worldEditMaxSize", 10000, 0, 20000);
+            worldEditMaxSize = builder.comment("Brush Max Size", "0 to Disable. The max size of blocks the Brush can place. Lower values run faster on servers.")
+                    .defineInRange("worldEditMaxSize", 10000, 0, 20000);
+
+            scaffoldMaxHeightTp = builder.comment("Iron Scaffolding Max Height Teleport", "0 to Disable. The max height you can teleport to the top or bottom of an Iron Scaffold.")
+                    .defineInRange("scaffoldMaxHeightTp", 256, 0, 512);
         }
     }
 }
