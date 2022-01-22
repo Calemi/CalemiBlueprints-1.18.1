@@ -185,7 +185,7 @@ public class BlockIronScaffolding extends Block {
 
                 //If the Player is not in Creative Mode, then give them the drops of the Block.
                 if (!player.isCreative()) {
-                    ItemHelper.spawnStackAtLocation(level, new Location(player), new ItemStack(InitItems.IRON_SCAFFOLDING.get()));
+                    ItemHelper.spawnStackAtEntity(level, player, new ItemStack(InitItems.IRON_SCAFFOLDING.get()));
                 }
             }
         }
@@ -198,7 +198,7 @@ public class BlockIronScaffolding extends Block {
 
             //If the Player is not in Creative Mode, then give them the drops of the Block.
             if (!player.isCreative()) {
-                ItemHelper.spawnStackAtLocation(level, new Location(player), new ItemStack(InitItems.IRON_SCAFFOLDING.get()));
+                ItemHelper.spawnStackAtEntity(level, player, new ItemStack(InitItems.IRON_SCAFFOLDING.get()));
             }
         }
     }
