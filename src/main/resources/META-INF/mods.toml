@@ -13,6 +13,13 @@ description='''
     '''
 
 [[dependencies.calemiblueprints]]
+modId="calemicore"
+mandatory=true
+versionRange="1.0.0"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.calemiblueprints]]
     modId="forge"
     mandatory=true
     versionRange="[39.0.9,)"
