@@ -40,7 +40,7 @@ import javax.annotation.Nullable;
  */
 public class BlockBlueprint extends Block {
 
-    private static final UnitMessenger messenger = new UnitMessenger("blueprint");
+    private static final UnitMessenger MESSENGER = new UnitMessenger("blueprint");
 
     /**
      * The specific color of the Blueprint.
@@ -119,7 +119,7 @@ public class BlockBlueprint extends Block {
                         SoundHelper.playBlockPlace(origin, heldBlockState);
 
                         if (!origin.level.isClientSide()) {
-                            messenger.sendMessage(messenger.getMessage("place").append(" ").append(ItemHelper.countByStacks(amountToConsume)), placer);
+                            MESSENGER.sendMessage(MESSENGER.getMessage("place").append(" ").append(ItemHelper.countByStacks(amountToConsume)), placer);
                         }
 
                         InventoryHelper.consumeItems(placer.getInventory(), heldStack, amountToConsume, false);
@@ -128,8 +128,8 @@ public class BlockBlueprint extends Block {
 
                 else if (!origin.level.isClientSide()) {
 
-                    messenger.sendErrorMessage(messenger.getMessage("error.notenough"), placer);
-                    messenger.sendErrorMessage(messenger.getMessage("error.notenough.missing")
+                    MESSENGER.sendErrorMessage(MESSENGER.getMessage("error.notenough"), placer);
+                    MESSENGER.sendErrorMessage(MESSENGER.getMessage("error.notenough.missing")
                             .append(" ").append(ItemHelper.countByStacks((scanner.buffer.size() - itemCount))), placer);
                 }
             }
@@ -187,10 +187,10 @@ public class BlockBlueprint extends Block {
 
             //Checking if the BlockScanner list exceeds the config option. If so, print the max scan size.
             if (scanner.buffer.size() >= CBConfig.server.blockScannerMaxSize.get()) {
-                messenger.sendErrorMessage(messenger.getMessage("scan.max").append(" ").append(CBConfig.server.blockScannerMaxSize.get().toString()), player);
+                MESSENGER.sendErrorMessage(MESSENGER.getMessage("scan.max").append(" ").append(CBConfig.server.blockScannerMaxSize.get().toString()), player);
             }
 
-            else messenger.sendMessage(messenger.getMessage("scan").append(" ").append(ItemHelper.countByStacks(scanner.buffer.size())), player);
+            else MESSENGER.sendMessage(MESSENGER.getMessage("scan").append(" ").append(ItemHelper.countByStacks(scanner.buffer.size())), player);
         }
     }
 
