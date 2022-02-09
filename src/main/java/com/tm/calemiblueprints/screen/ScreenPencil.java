@@ -5,8 +5,8 @@ import com.tm.calemiblueprints.packet.CBPacketHandler;
 import com.tm.calemiblueprints.packet.PacketPencilSetColor;
 import com.tm.calemicore.util.helper.ScreenHelper;
 import com.tm.calemicore.util.screen.ScreenBase;
+import com.tm.calemicore.util.screen.ScreenRect;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
@@ -43,11 +43,6 @@ public class ScreenPencil extends ScreenBase {
     }
 
     @Override
-    public ResourceLocation getGuiTextureLocation () {
-        return null;
-    }
-
-    @Override
     public int getGuiSizeX () {
         return 0;
     }
@@ -62,10 +57,10 @@ public class ScreenPencil extends ScreenBase {
 
         for (int i = 0; i < DyeColor.values().length; i++) {
             int color = DyeColor.byId(i).getTextColor();
-            ScreenHelper.drawColoredRect(getScreenX() + (i * 20) - 160, 0, 0, 20, this.height, color, 0.4F);
+            ScreenHelper.drawColoredRect(new ScreenRect(getScreenX() + (i * 20) - 160, 0, 20, this.height), 0, color, 0.4F);
         }
 
-        ScreenHelper.drawCenteredString(poseStack, new TranslatableComponent("cb.gui.pencil.name"), getScreenX(), getScreenY() - 25, 0, 0xFFFFFF);
+        ScreenHelper.drawCenteredString(poseStack, getScreenX(), getScreenY() - 25, 0, 0xFFFFFF, new TranslatableComponent("cb.gui.pencil.name"));
     }
 
     @Override

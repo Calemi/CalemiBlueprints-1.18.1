@@ -2,8 +2,7 @@ package com.tm.calemiblueprints.screen;
 
 import com.tm.calemiblueprints.init.InitItems;
 import com.tm.calemiblueprints.main.CBReference;
-import com.tm.calemicore.util.helper.ItemHelper;
-import com.tm.calemicore.util.screen.ItemStackButton;
+import com.tm.calemicore.util.screen.widget.ItemStackButton;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.network.chat.TranslatableComponent;
