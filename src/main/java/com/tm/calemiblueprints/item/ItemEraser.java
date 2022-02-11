@@ -69,7 +69,7 @@ public class ItemEraser extends Item {
                 else {
 
                     //Starts a scan of all connected Blueprint.
-                    BlockScanner scanner = new BlockScanner(origin, origin.getBlockState(), CBConfig.server.blockScannerMaxSize.get());
+                    BlockScanner scanner = new BlockScanner(origin, origin.getBlockState(), CBConfig.server.blockScannerMaxSize.get(), false);
                     scanner.startVeinScan();
 
                     //Iterates through all scanned Blueprints and removes them.

@@ -1,12 +1,10 @@
 package com.tm.calemiblueprints.screen;
 
 import com.tm.calemiblueprints.init.InitItems;
-import com.tm.calemiblueprints.main.CBReference;
 import com.tm.calemicore.util.screen.widget.ItemStackButton;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -23,7 +21,7 @@ public class PencilButton extends ItemStackButton {
      * @param pressable Called when the button is pressed.
      */
     public PencilButton(int colorId, int x, int y, ItemRenderer itemRender, Button.OnPress pressable) {
-        super(x, y, new ResourceLocation(CBReference.MOD_ID + ":textures/gui/tooltip.png"), itemRender, pressable);
+        super(x, y, itemRender, pressable);
         this.colorId = colorId;
     }
 

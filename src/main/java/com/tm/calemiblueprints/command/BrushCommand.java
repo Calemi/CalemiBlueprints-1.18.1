@@ -14,7 +14,7 @@ import com.tm.calemicore.util.Location;
 import com.tm.calemicore.util.helper.ItemHelper;
 import com.tm.calemicore.util.helper.SoundHelper;
 import com.tm.calemicore.util.helper.StringHelper;
-import com.tm.calemicore.util.helper.WorldEditHelper;
+import com.tm.calemicore.util.helper.shape.*;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,7 +26,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class BrushCommand {
@@ -194,19 +193,17 @@ public class BrushCommand {
         //Checks if both Locations have been set.
         if (pos1 != null && pos2 != null) {
 
-            ArrayList<Location> blocksToPlace = new ArrayList<>();
+            ShapeBase shapeFormation = null;
             BlockBlueprint BLUEPRINT = (BlockBlueprint) Objects.requireNonNull(InitItems.BLUEPRINT.get());
 
             if (shape.equalsIgnoreCase("fill")) {
 
-                if (hollow) blocksToPlace = WorldEditHelper.selectHollowCubeFromTwoPoints(pos1, pos2);
-                else blocksToPlace = WorldEditHelper.selectCubeFromTwoPoints(pos1, pos2);
+                if (hollow) shapeFormation = new ShapeHollowCube(pos1, pos2);
+                else shapeFormation = new ShapeCube(pos1, pos2);
             }
 
             else if (shape.equalsIgnoreCase("recolor")) {
-
-                blocksToPlace = WorldEditHelper.selectCubeFromTwoPoints(pos1, pos2);
-                generateBlocks(blocksToPlace, BLUEPRINT.defaultBlockState().setValue(BlockBlueprint.COLOR, color2), BLUEPRINT.defaultBlockState().setValue(BlockBlueprint.COLOR, color1), player);
+                generateShape(new ShapeCube(pos1, pos2), BLUEPRINT.defaultBlockState().setValue(BlockBlueprint.COLOR, color2), BLUEPRINT.defaultBlockState().setValue(BlockBlueprint.COLOR, color1), player);
                 return 1;
             }
 
@@ -227,19 +224,19 @@ public class BrushCommand {
                     return 0;
                 }
 
-                blocksToPlace = WorldEditHelper.selectWallsFromRadius(pos1, xzRad, pos1.y, pos2.y);
+                shapeFormation = new ShapeWalls(pos1, xzRad, pos1.y, pos2.y);
             }
 
             else if (shape.equalsIgnoreCase("circle")) {
-                blocksToPlace = WorldEditHelper.selectCircleFromTwoPoints(pos1, pos2, hollow, thickness);
+                shapeFormation = new ShapeCircle(pos1, pos2, hollow, thickness);
             }
 
             else if (shape.equalsIgnoreCase("cylinder")) {
-                blocksToPlace = WorldEditHelper.selectCylinderFromTwoPoints(pos1, pos2, hollow, thickness);
+                shapeFormation = new ShapeCylinder(pos1, pos2, hollow, thickness);
             }
 
             else if (shape.equalsIgnoreCase("sphere")) {
-                blocksToPlace = WorldEditHelper.selectSphereFromTwoPoints(pos1, pos2, hollow, thickness);
+                shapeFormation = new ShapeSphere(pos1, pos2, hollow, thickness);
             }
 
             else if (shape.equalsIgnoreCase("pyramid")) {
@@ -263,11 +260,11 @@ public class BrushCommand {
                     return 0;
                 }
 
-                blocksToPlace = WorldEditHelper.selectPyramidFromRadius(pos1, xyzRad, hollow);
+                shapeFormation = new ShapePyramid(pos1, xyzRad, hollow);
             }
 
-            if (!blocksToPlace.isEmpty()) {
-                generateBlocks(blocksToPlace, BLUEPRINT.defaultBlockState().setValue(BlockBlueprint.COLOR, color1), Blocks.AIR.defaultBlockState(), player);
+            if (shapeFormation != null) {
+                generateShape(shapeFormation, BLUEPRINT.defaultBlockState().setValue(BlockBlueprint.COLOR, color1), Blocks.AIR.defaultBlockState(), player);
             }
 
             return Command.SINGLE_SUCCESS;
@@ -279,22 +276,22 @@ public class BrushCommand {
         }
     }
 
-    private static void generateBlocks(ArrayList<Location> list, BlockState blockToPlace, BlockState mask, Player player) {
+    private static void generateShape(ShapeBase shapeFormation, BlockState blockToPlace, BlockState mask, Player player) {
 
         if (CBConfig.server.worldEditMaxSize.get() == 0) {
             ItemBrush.MESSENGER.sendErrorMessage(ItemBrush.MESSENGER.getMessage("error.disabled"), player);
             return;
         }
 
-        if (list.size() > CBConfig.server.worldEditMaxSize.get()) {
+        if (shapeFormation.getShapeLocations().size() > CBConfig.server.worldEditMaxSize.get()) {
             ItemBrush.MESSENGER.sendErrorMessage(ItemBrush.MESSENGER.getMessage("error.too-much-fill"), player);
-            ItemBrush.MESSENGER.sendErrorMessage(ItemBrush.MESSENGER.getMessage("error.too-much-fill.over", StringHelper.insertCommas(list.size() - CBConfig.server.worldEditMaxSize.get())), player);
+            ItemBrush.MESSENGER.sendErrorMessage(ItemBrush.MESSENGER.getMessage("error.too-much-fill.over", StringHelper.insertCommas(shapeFormation.getShapeLocations().size() - CBConfig.server.worldEditMaxSize.get())), player);
             return;
         }
 
         int count = 0;
 
-        for (Location nextLocation : list) {
+        for (Location nextLocation : shapeFormation.getShapeLocations()) {
 
             if (mask == Blocks.AIR.defaultBlockState() && nextLocation.isBlockValidForPlacing()) {
 

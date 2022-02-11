@@ -7,7 +7,7 @@ import com.tm.calemiblueprints.packet.PacketPencilSetColor;
 import com.tm.calemicore.util.BlockScanner;
 import com.tm.calemicore.util.Location;
 import com.tm.calemicore.util.UnitMessenger;
-import com.tm.calemicore.util.helper.InventoryHelper;
+import com.tm.calemicore.util.helper.ContainerHelper;
 import com.tm.calemicore.util.helper.ItemHelper;
 import com.tm.calemicore.util.helper.SoundHelper;
 import net.minecraft.core.BlockPos;
@@ -95,14 +95,14 @@ public class BlockBlueprint extends Block {
             //Handles replacing only one Block.
             if (placer.isCrouching()) {
                 replaceBlueprint(origin, placer, heldBlock);
-                InventoryHelper.consumeItems(placer.getInventory(), heldStack, 1, false);
+                ContainerHelper.consumeItems(placer.getInventory(), heldStack, 1, false);
                 SoundHelper.playBlockPlace(origin, heldBlockState);
             }
 
             //Handles replacing every block in list.
             else {
 
-                int itemCount = InventoryHelper.countItems(placer.getInventory(), heldStack, false);
+                int itemCount = ContainerHelper.countItems(placer.getInventory(), heldStack, false);
 
                 if (itemCount >= scanner.buffer.size()) {
 
@@ -122,7 +122,7 @@ public class BlockBlueprint extends Block {
                             MESSENGER.sendMessage(MESSENGER.getMessage("place").append(" ").append(ItemHelper.countByStacks(amountToConsume)), placer);
                         }
 
-                        InventoryHelper.consumeItems(placer.getInventory(), heldStack, amountToConsume, false);
+                        ContainerHelper.consumeItems(placer.getInventory(), heldStack, amountToConsume, false);
                     }
                 }
 
@@ -170,7 +170,7 @@ public class BlockBlueprint extends Block {
         ItemStack heldStack = player.getMainHandItem();
 
         //Creates a scanner which will search through multiple Blueprints.
-        BlockScanner scanner = new BlockScanner(origin, origin.getBlockState(), CBConfig.server.blockScannerMaxSize.get());
+        BlockScanner scanner = new BlockScanner(origin, origin.getBlockState(), CBConfig.server.blockScannerMaxSize.get(), false);
         scanner.startVeinScan();
 
         //Checking if the held stack exists and that it's not a Blueprint.
